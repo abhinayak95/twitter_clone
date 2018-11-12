@@ -5,45 +5,21 @@ class UsersControllerTest < ActionController::TestCase
     @user = users(:one)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:users)
-  end
-
-  test "should get new" do
-    get :new
+  test "should create new user" do
+    post :create, user: { email: 'test3', password: 'test3' }
     assert_response :success
   end
 
-  test "should create user" do
-    assert_difference('User.count') do
-      post :create, user: { email: @user.email, password: @user.password }
-    end
-
-    assert_redirected_to user_path(assigns(:user))
+  test "should throw an error if email is missing" do
+    post :create, user: { password: 'test3' }
+    json_response = JSON.parse(response.body)
+    assert_equal nil, json_response["status"]
   end
 
-  test "should show user" do
-    get :show, id: @user
-    assert_response :success
+  test "should throw an error if password is missing" do
+    post :create, user: { email: 'test3' }
+    json_response = JSON.parse(response.body)
+    assert_equal 'unprocessable_entity', json_response["status"]
   end
 
-  test "should get edit" do
-    get :edit, id: @user
-    assert_response :success
-  end
-
-  test "should update user" do
-    patch :update, id: @user, user: { email: @user.email, password: @user.password }
-    assert_redirected_to user_path(assigns(:user))
-  end
-
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete :destroy, id: @user
-    end
-
-    assert_redirected_to users_path
-  end
 end
