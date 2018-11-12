@@ -4,8 +4,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if User.exists?(email: params[:email])
-      puts 'email'
+    if User.exists?(email: params[:user][:email])
       render :json => { error: "email id already registered", status: :unprocessable_entity }
     else
       if @user.save

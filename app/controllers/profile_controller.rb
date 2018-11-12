@@ -1,5 +1,5 @@
 class ProfileController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token
   before_action :authenticate_user
 
   def create
@@ -17,19 +17,18 @@ class ProfileController < ApplicationController
   end
 
   def show
-    @profile = Profile.where(user_id: current_user.id).last
-    if @profile
-      render :json => @profile.avatar
-    else
-      render :json => {error: "Profile Doesn't exist! Try creating it first", status: :unprocessable_entity }
+    begin
+      @profile = Profile.find(user_id: current_user.id)
+      render :json => @profile
+    rescue ActiveRecord::RecordNotFound
+      render :json => {error: {Profile: ["Doesn't exist! Try creating it first"] }, status: :unprocessable_entity }
     end
-      # else
-      #   format.json { render json: @profile.errors, status: :unprocessable_entity }
-      # end
+    else
   end
 
   def update
-    if @profile.update(user_params)
+    @profile = Profile.where(user_id: current_user.id).first
+    if @profile && @profile.update(profile_params)
       render :json => @profile
     else
       render :json =>  { error: @user.errors, status: :unprocessable_entity }
