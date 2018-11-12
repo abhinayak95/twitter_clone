@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails twitter-clone: production" uuid="c1fce8f5-0840-4466-a69a-5593cfff225b">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="POSTGRES" exact-version="0.0" />
+      <user-name>twitter-clone</user-name>
+    </data-source>
+    <data-source name="Rails twitter-clone: test" uuid="c0bbea75-fd70-4914-80c2-c4d17e3b3984">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="POSTGRES" exact-version="0.0" />
+      <user-name>postgres</user-name>
+    </data-source>
+    <data-source name="Rails twitter-clone: development" uuid="027a8fcd-d94b-4d37-a2b4-88924b1f59f4">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="POSTGRES" exact-version="0.0" />
+      <first-sync>true</first-sync>
+      <user-name>postgres</user-name>
+    </data-source>
+  </component>
+</project>
