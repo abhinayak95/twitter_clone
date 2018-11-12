@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+
+gem 'aws-sdk-s3'
+
 gem 'knock'
+
 gem 'bcrypt'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
