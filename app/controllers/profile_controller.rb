@@ -9,7 +9,7 @@ class ProfileController < ApplicationController
       if @profile.save
         render :json => @profile
       else
-        render {json :@profile.errors, status: :unprocessable_entity }
+        render {error :@profile.errors, status: :unprocessable_entity }
       end
   end
 
@@ -25,7 +25,7 @@ class ProfileController < ApplicationController
     if @profile.update(user_params)
       render :json => @profile
     else
-      render :json =>  { json: @user.errors, status: :unprocessable_entity }
+      render :json =>  { error: @user.errors, status: :unprocessable_entity }
     end
   end
 

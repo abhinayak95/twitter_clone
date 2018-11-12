@@ -8,13 +8,16 @@ one:
   name: 'test1'
   dob: '01-01-01'
   bio: 'Test1 Bio'
+  user_id: 1
 
 two:
   name: 'test2'
   dob: '02-02-02'
   bio: 'Test2 Bio'
+  user_id: 2
 
 three:
   name: 'test3'
   dob: '03-03-03'
   bio: 'Test3 Bio'
+  user_id: 3
