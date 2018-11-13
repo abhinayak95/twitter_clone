@@ -3,18 +3,17 @@ class TweetController < ApplicationController
   before_action :authenticate_user, only: [:create, :update]
 
   def index
-    @tweet = Tweet.where(user_id: current_user.id)
+    @tweet = Tweet.where(user_id: params[:user_id])
     render :json => @tweet
   end
 
   def show
-    begin
-      @tweet = Tweet.find(params[:id])
-      render :json => @tweet
-    rescue ActiveRecord::RecordNotFound
-      render :json => { error: { tweet:['not found']}, status: :unprocessable_entity}, :status => :unprocessable_entity
-    end
-    @twet = Tweet
+      @tweet = Tweet.where("user_id = ? AND id = ?", params[:user_id], params[:id]).first
+      if !@tweet
+        render :json => { error: { tweet:['not found']}, status: :unprocessable_entity}, :status => :unprocessable_entity
+      else
+        render :json => @tweet
+      end
   end
 
   def create
@@ -28,10 +27,17 @@ class TweetController < ApplicationController
   end
 
   def update
-    p "tweet methods #{@tweet.public_methods}"
+    p "#{params[:user_id]} ..... #{current_user.id}"
     begin
-      @tweet = Tweet.find(params[:tweet_id])
-      render :json => @tweet
+      # if params[:user_id] != current_user.id
+      #   return render :status => :unprocessable_entity
+      # end
+      @tweet = Tweet.where("user_id = ? AND id = ?", params[:user_id], params[:id]).first
+      if @tweet && @tweet.update(tweet_params)
+        render :json => @tweet
+      else
+        render :json => { error: @tweet.errors, status: :unprocessable_entity}, :status => :unprocessable_entity
+      end
     rescue ActiveRecord::RecordNotFound
       render :json => { error: {tweet:['not found']}, status: :unprocessable_entity}, :status => :unprocessable_entity
     end

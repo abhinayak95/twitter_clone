@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :users do
-    resources :profile
-    resources :tweet
+
+
+  post '/users/signup' => 'users#create'
+  post '/users/signin' => 'user_token#create'
+  put 'users/:user_id/profile' => 'users#update'
+  patch 'users/:user_id/profile' => 'users#update'
+
+  resources :users, except: [:index, :new, :edit, :show, :update, :create, :destroy] do
+    resources :profile, except: [:new, :edit, :show, :update, :destroy]
+    resources :tweet, except: [:new, :edit]
   end
 
-  post '/user_token' => 'user_token#create'
   # post '/signup' => 'user#create'
   # post '/signin' => 'user#get'
 

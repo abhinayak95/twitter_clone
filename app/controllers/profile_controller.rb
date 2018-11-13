@@ -2,6 +2,16 @@ class ProfileController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :authenticate_user
 
+  def index
+    begin
+      @profile = Profile.where(user_id: current_user.id).first
+      render :json => @profile
+    rescue ActiveRecord::RecordNotFound
+      render :json => {error: {Profile: ["Doesn't exist. Try creating it first"] }, status: :unprocessable_entity }
+    end
+  else
+  end
+
   def create
     p "this is user id #{current_user.id}"
     if Profile.exists?(user_id: current_user.id)
@@ -16,16 +26,6 @@ class ProfileController < ApplicationController
     end
   end
 
-  def show
-    p current_user
-    begin
-      @profile = Profile.where(user_id: current_user.id).first
-      render :json => @profile
-    rescue ActiveRecord::RecordNotFound
-      render :json => {error: {Profile: ["Doesn't exist! Try creating it first"] }, status: :unprocessable_entity }
-    end
-    else
-  end
 
   def update
     begin
