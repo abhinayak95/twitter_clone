@@ -17,8 +17,9 @@ class ProfileController < ApplicationController
   end
 
   def show
+    p current_user
     begin
-      @profile = Profile.find(user_id: current_user.id)
+      @profile = Profile.where(user_id: current_user.id).first
       render :json => @profile
     rescue ActiveRecord::RecordNotFound
       render :json => {error: {Profile: ["Doesn't exist! Try creating it first"] }, status: :unprocessable_entity }
@@ -28,7 +29,7 @@ class ProfileController < ApplicationController
 
   def update
     begin
-      @profile = Profile.find(user_id: current_user.id)
+      @profile = Profile.where(user_id: current_user.id).first
       if @profile.update(profile_params)
         render :json => @profile
       else

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get '/profile' => 'profile#show'
   post '/profile' => 'profile#create'
   patch '/profile' => 'profile#update'
+
+  post '/tweets' => 'tweet#create'
+  get '/tweets' => 'tweet#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
