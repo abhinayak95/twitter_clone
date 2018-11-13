@@ -40,15 +40,15 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # PaperClip!
-  Paperclip.options[:command_path] = "/usr/bin/"
+  Paperclip.options[:command_path] = '/usr/bin/'
 
   config.paperclip_defaults  = {
       storage: :s3,
       s3_credentials: {
-          bucket: "twitter-clone-api",
-          access_key_id: "AKIAIZIFGLCW4FIKUUVA",
-          secret_access_key: "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",
-          s3_region: "us-east-2"
+          bucket: ENV['S3_BUCKET_NAME'],
+          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_SECRET_KEY_ID'],
+          s3_region: ENV['AWS_REGION']
       }
   }
 end

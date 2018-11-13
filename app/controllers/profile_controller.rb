@@ -27,11 +27,15 @@ class ProfileController < ApplicationController
   end
 
   def update
-    @profile = Profile.where(user_id: current_user.id).first
-    if @profile && @profile.update(profile_params)
-      render :json => @profile
-    else
-      render :json =>  { error: @user.errors, status: :unprocessable_entity }
+    begin
+      @profile = Profile.find(user_id: current_user.id)
+      if @profile.update(profile_params)
+        render :json => @profile
+      else
+        render :json =>  { error: @user.errors, status: :unprocessable_entity }
+      end
+    rescue ActiveRecord::RecordNotFound
+      render :json => {error: {Profile: ["Doesn't exist! Try creating it first"] }, status: :unprocessable_entity }
     end
   end
 

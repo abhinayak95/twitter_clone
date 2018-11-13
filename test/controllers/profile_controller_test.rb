@@ -13,8 +13,8 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   test 'should get user profile if exist' do
-    # request.env["HTTP_AUTHORIZATION"] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxMDY4ODksInN1YiI6MX0.EHmbbqmkvCmT7PjNCNhaGkhKGBoHfzCIL8rqF7o7c-I"
-    get :show, { :authorization => "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxMDY4ODksInN1YiI6MX0.EHmbbqmkvCmT7PjNCNhaGkhKGBoHfzCIL8rqF7o7c-I"}
+    request.env['HTTP_AUTHORIZATION'] = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjJ9.FHL7I7DuVtJOeKUkV69TYK0TRPSc7HFyi8UiDs04bFg"
+    get :show
     p response.body
     json_response = response.body
     assert_response 401

@@ -27,4 +27,5 @@ class UsersControllerTest < ActionController::TestCase
     json_response = JSON.parse(response.body)
     assert_equal 'unprocessable_entity', json_response["status"]
   end
+
 end
