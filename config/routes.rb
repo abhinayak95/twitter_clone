@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   post '/users/signup' => 'users#create'
   post '/users/signin' => 'user_token#create'
+
   put 'users/:user_id/profile' => 'users#update'
   patch 'users/:user_id/profile' => 'users#update'
 
+  post '/users/:user_id/follow' => 'following#follow'
   resources :users, except: [:index, :new, :edit, :show, :update, :create, :destroy] do
     resources :profile, except: [:new, :edit, :show, :update, :destroy]
     resources :tweet, except: [:new, :edit]
