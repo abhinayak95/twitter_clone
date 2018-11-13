@@ -15,4 +15,9 @@ class TweetControllerTest < ActionController::TestCase
     get :show
     assert_response 401
   end
+
+  test 'should be able to update the tweet' do
+    patch :update, { tweet: "I am updating my tweet"}
+    assert_response 401
+  end
 end

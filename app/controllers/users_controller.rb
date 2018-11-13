@@ -15,6 +15,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # def show
+  #   begin
+  #     @user = User.find(params[:id])
+  #     p "the class type of user is #{@user.class}"
+  #     render @user
+  #   rescue ActiveRecord::RecordNotFound
+  #     render :json => { error: "email id already registered", status: :unprocessable_entity }
+  #   end
+  # end
+
   private
     def set_user
       @user = User.find(params[:id])

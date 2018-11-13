@@ -13,11 +13,11 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   test 'should get user profile if exist' do
-    request.env['HTTP_AUTHORIZATION'] = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjJ9.FHL7I7DuVtJOeKUkV69TYK0TRPSc7HFyi8UiDs04bFg"
-    get :show
-    p response.body
+    @request.headers["Authorization"] = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjJ9.FHL7I7DuVtJOeKUkV69TYK0TRPSc7HFyi8UiDs04bFg"
+    # get :show
+    # p @request.headers
     json_response = response.body
-    assert_response 401
+    assert_response 200
   end
 
   test 'should be able to update profile' do
@@ -25,4 +25,10 @@ class ProfileControllerTest < ActionController::TestCase
     json_response = response.body
     assert_equal nil, json_response["status"]
   end
+
+  # test 'ok' do
+  #   get :test_method,  headers: { "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjJ9.FHL7I7DuVtJOeKUkV69TYK0TRPSc7HFyi8UiDs04bFg" }
+  #   assert_response 200
+  #   # p requset.headers
+  # end
 end

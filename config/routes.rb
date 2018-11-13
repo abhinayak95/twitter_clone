@@ -1,18 +1,22 @@
 Rails.application.routes.draw do
 
-  resources :users
+  resources :users do
+    resources :profile
+    resources :tweet
+  end
 
   post '/user_token' => 'user_token#create'
   # post '/signup' => 'user#create'
   # post '/signin' => 'user#get'
 
-  get '/profile' => 'profile#show'
-  post '/profile' => 'profile#create'
-  patch '/profile' => 'profile#update'
-
-  post '/tweets' => 'tweet#create'
-  get '/tweets' => 'tweet#show'
-
+  # get '/profile' => 'profile#show'
+  # post '/profile' => 'profile#create'
+  # patch '/profile' => 'profile#update'
+  #
+  # post '/tweets' => 'tweet#create'
+  # get '/tweets' => 'tweet#index'
+  # get '/tweets/:id' => 'tweet#show'
+  # patch '/tweets/:tweet_id' => 'tweet#update'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
