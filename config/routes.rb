@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   patch 'users/:user_id/profile' => 'users#update'
 
   post '/users/:user_id/follow' => 'following#follow'
+  post '/users/:user_id/unfollow' => 'following#unfollow'
+
   resources :users, except: [:index, :new, :edit, :show, :update, :create, :destroy] do
     resources :profile, except: [:new, :edit, :show, :update, :destroy]
     resources :tweet, except: [:new, :edit]

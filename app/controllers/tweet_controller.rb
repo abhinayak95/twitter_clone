@@ -3,21 +3,21 @@ class TweetController < ApplicationController
   before_action :authenticate_user, only: [:create, :update]
 
   def index
-    @tweet = Tweet.where(user_id: params[:user_id])
+    @tweet = current_user.tweets
     render :json => @tweet
   end
 
   def show
-      @tweet = Tweet.where("user_id = ? AND id = ?", params[:user_id], params[:id]).first
+      @tweet = current_user.tweets.where(id: params[:id]).first
       if !@tweet
-        render :json => { error: { tweet:['not found']}, status: :unprocessable_entity}, :status => :unprocessable_entity
+        render :json => { error: { tweet:['not found']}, status: :not_found}, :status => :not_found
       else
         render :json => @tweet
       end
   end
 
   def create
-    @tweet = Tweet.create(tweet_params)
+    @tweet = current_user.tweets.create(tweet_params)
     if @tweet.save
       render :json => @tweet
     else
@@ -32,7 +32,7 @@ class TweetController < ApplicationController
       # if params[:user_id] != current_user.id
       #   return render :status => :unprocessable_entity
       # end
-      @tweet = Tweet.where("user_id = ? AND id = ?", params[:user_id], params[:id]).first
+      @tweet = current_user.tweets.where(id: params[:id]).first
       if @tweet && @tweet.update(tweet_params)
         render :json => @tweet
       else
@@ -44,6 +44,6 @@ class TweetController < ApplicationController
   end
 
   def tweet_params
-    { tweet: params[:tweet], user_id: current_user.id }
+    params.permit(:tweet)
   end
 end

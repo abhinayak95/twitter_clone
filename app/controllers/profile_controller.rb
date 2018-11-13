@@ -4,20 +4,19 @@ class ProfileController < ApplicationController
 
   def index
     begin
-      @profile = Profile.where(user_id: current_user.id).first
+      @profile = current_user.profile
       render :json => @profile
     rescue ActiveRecord::RecordNotFound
-      render :json => {error: {Profile: ["Doesn't exist. Try creating it first"] }, status: :unprocessable_entity }
+      render :json => {error: {Profile: ["Doesn't exist. Try creating it first"] }, status: :not_found }, :status => :not_found
     end
   else
   end
 
   def create
-    p "this is user id #{current_user.id}"
     if Profile.exists?(user_id: current_user.id)
       render :json => {error: "Profile already exists! Try updating it", status: :unprocessable_entity }
     else
-      @profile = Profile.new(profile_params, user_id: current_user.id)
+      @profile = current_user.profile.create(profile_params, user_id: current_user.id)
       if @profile.save
         render :json => @profile
       else
@@ -29,8 +28,7 @@ class ProfileController < ApplicationController
 
   def update
     begin
-      @profile = Profile.where(user_id: current_user.id).first
-      if @profile.update(profile_params)
+      if current_user.profile.update(profile_params)
         render :json => @profile
       else
         render :json =>  { error: @user.errors, status: :unprocessable_entity }
@@ -41,7 +39,6 @@ class ProfileController < ApplicationController
   end
 
   def profile_params
-    # params.require(:profile).permit(:name, :dob, :bio)
-    {name: params[:name], dob: params[:dob], bio: params[:bio], user_id: current_user.id, avatar: params[:avatar]}
+    params.require(:profile).permit(:name, :dob, :bio, :avatar)
   end
 end

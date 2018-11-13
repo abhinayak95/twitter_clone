@@ -8,8 +8,9 @@ class TweetControllerTest < ActionController::TestCase
   end
 
   test 'should get all the tweets of the user, without an authentication' do
-    get :index, { user_id: 1}
-    assert_response 200
+    assert_raise NoMethodError do
+      get :index, { user_id: 1}
+    end
   end
 
   test 'should be able to update the tweet of his own' do
