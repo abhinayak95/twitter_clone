@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   post '/users/signup' => 'users#create'
   post '/users/signin' => 'user_token#create'
 
-  put 'users/:user_id/profile' => 'users#update'
-  patch 'users/:user_id/profile' => 'users#update'
+
 
   post '/users/:user_id/follow' => 'following#follow'
   post '/users/:user_id/unfollow' => 'following#unfollow'
@@ -13,8 +12,13 @@ Rails.application.routes.draw do
   get '/users/:user_id/likes' => 'likes#index'
   get '/users/:user_id/retweets' => 'retweets#index'
 
-  resources :users, except: [:index, :new, :edit, :show, :update, :create, :destroy] do
-    resources :profile, except: [:new, :edit, :show, :update, :destroy]
+  resources :users, only: [:create] do
+    resources :profile, only: [:index, :create] do
+      collection do
+        put '/' => 'users#update'
+        patch '/' => 'users#update'
+      end
+    end
     resources :tweets, except: [:new, :edit], controller: 'users/tweets' do
       post '/:tweet_id/like', on: :collection, controller: 'likes', action: 'create'
       delete '/:tweet_id/unlike', on: :collection, controller: 'likes', action: 'destroy'
