@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_one :profile
   has_many :tweets
   has_many :followings
+  has_many :likes
   validates :email, presence: true
   # def to_token_payload
   #   {
