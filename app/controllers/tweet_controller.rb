@@ -4,7 +4,7 @@ class TweetController < ApplicationController
 
   def index
     @tweet = current_user.tweets
-    render :json => @tweet
+    @tweet.page(params[:page]).order('created_at DESC')
   end
 
   def show

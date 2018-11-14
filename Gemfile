@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'will_paginate', '~> 3.1.0'
+
 gem 'figaro'
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
