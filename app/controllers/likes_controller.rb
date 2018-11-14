@@ -12,21 +12,21 @@ class LikesController < ApplicationController
       # @like = current_user.likes.find(tweet_id: params[:id])
       # render :json => { error: {like: ['this tweet already']}, status: :bad_request}, :status => :bad_request
     # rescue ActiveRecord::RecordNotFound
-      @like = current_user.likes.create(tweet_id: params[:tweet_id])
+      @like = current_user.likes.create(like_params)
       render :json => @like
     # end
   end
 
   def destroy
     # begin
-      @like = current_user.likes.where(tweet_id: params[:tweet_id]).destroy_all
+      @like = current_user.likes.where(like_params).destroy_all
       render :json => @like
     # rescue ActiveRecord::RecordNotFound
     #   render :json => { error: {like: ['this tweet, before unliking it']}, status: :bad_request}, :status => :bad_request
     # end
   end
 
-  # def like_params
-  #   params.permit(:tweet_id)
-  # end
+  def like_params
+    params.permit(:tweet_id)
+  end
 end

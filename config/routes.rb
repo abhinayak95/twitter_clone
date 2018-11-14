@@ -11,12 +11,14 @@ Rails.application.routes.draw do
   post '/users/:user_id/unfollow' => 'following#unfollow'
 
   get '/users/:user_id/likes' => 'likes#index'
+  get '/users/:user_id/retweets' => 'retweets#index'
 
   resources :users, except: [:index, :new, :edit, :show, :update, :create, :destroy] do
     resources :profile, except: [:new, :edit, :show, :update, :destroy]
     resources :tweets, except: [:new, :edit], controller: 'users/tweets' do
       post '/:tweet_id/like', on: :collection, controller: 'likes', action: 'create'
       delete '/:tweet_id/unlike', on: :collection, controller: 'likes', action: 'destroy'
+      resources :retweets, only: [:create]
     end
   end
 
