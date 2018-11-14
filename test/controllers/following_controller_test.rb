@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class FollowingControllerTest < ActionController::TestCase
+
   def token
     Knock::AuthToken.new(payload: { sub: users(:one).id }).token
   end

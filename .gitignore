@@ -14,7 +14,3 @@
 
 # Ignore application configuration
 /config/application.yml
-
-/app/controllers/like_controller.rb
-/test/controllers/like_controller_test.rb
-/app/models/like.rb

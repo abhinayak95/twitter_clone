@@ -16,13 +16,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response 401
   end
 
-  test 'should get user profile if exist' do
-    @request.headers["Authorization"] = "JWT #{token}"
-    get :show
-    # p @request.headers
-    json_response = response.body
-    assert_response 200
-  end
 
   # test 'should be able to update profile' do
   #   put :update, {user_id: 1}

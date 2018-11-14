@@ -3,23 +3,23 @@ class FollowingController < ApplicationController
   before_action :authenticate_user
 
   def follow
-    if current_user.followings.where(params[:following_user_id]).first
-      # todo remember
-      render :json => { error:{following:['the user already']}}
-    else
+    begin
+      current_user.followings.find(params[:user_id])
+      render :json => { error:{following:['the user already']}, status: :unprocessable_entity}, status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotFound
       @follow = current_user.followings.create(following_user_id: params[:user_id])
       render :json => @follow
     end
   end
 
   def unfollow
-    # todo remember 2
-    @following = current_user.followings.where(params[:following_user_id]).first
-    if @following
+    begin
+      @following = current_user.followings.find(params[:user_id])
       @following.destroy
       render :json => { message:{following:['unfollowed']}}
-    else
+    rescue ActiveRecord::RecordNotFound
       render :json => { message:{following:['not the user']}}
     end
   end
+
 end
