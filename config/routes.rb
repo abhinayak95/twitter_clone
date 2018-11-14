@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
 
-
   post '/users/signup' => 'users#create'
   post '/users/signin' => 'user_token#create'
 

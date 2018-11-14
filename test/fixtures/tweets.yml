@@ -24,4 +24,23 @@ four:
   id: 4
   tweet: 'Tweet 2 by Test1'
   user_id: 1
-#  column: value
+
+five:
+  id: 5
+  tweet: 'Tweet 3 by Test1'
+  user_id: 1
+
+six:
+  id: 6
+  tweet: 'Tweet 4 by Test1'
+  user_id: 1
+
+seven:
+  id: 7
+  tweet: 'Tweet 5 by Test1'
+  user_id: 1
+
+eight:
+  id: 8
+  tweet: 'Tweet 6 by Test1'
+  user_id: 1

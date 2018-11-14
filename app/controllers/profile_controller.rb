@@ -25,7 +25,6 @@ class ProfileController < ApplicationController
     end
   end
 
-
   def update
     begin
       if current_user.profile.update(profile_params)

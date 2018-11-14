@@ -5,6 +5,10 @@ class ProfileControllerTest < ActionController::TestCase
     @profile = profiles(:one)
   end
 
+  def token
+    Knock::AuthToken.new(payload: { sub: users(:one).id }).token
+  end
+
   test 'should get status code of unauthorized if token is not passed' do
     get :index, { user_id: 1}
     p response.body
@@ -13,8 +17,8 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   test 'should get user profile if exist' do
-    @request.headers["Authorization"] = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjJ9.FHL7I7DuVtJOeKUkV69TYK0TRPSc7HFyi8UiDs04bFg"
-    # get :show
+    @request.headers["Authorization"] = "JWT #{token}"
+    get :show
     # p @request.headers
     json_response = response.body
     assert_response 200
@@ -26,9 +30,4 @@ class ProfileControllerTest < ActionController::TestCase
   #   assert_equal nil, json_response["status"]
   # end
 
-  # test 'ok' do
-  #   get :test_method,  headers: { "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjJ9.FHL7I7DuVtJOeKUkV69TYK0TRPSc7HFyi8UiDs04bFg" }
-  #   assert_response 200
-  #   # p requset.headers
-  # end
 end

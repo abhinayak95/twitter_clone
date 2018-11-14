@@ -4,7 +4,7 @@ class TweetController < ApplicationController
 
   def index
     @tweet = current_user.tweets
-    @tweet.page(params[:page]).order('created_at DESC')
+    render :json => @tweet.page(params[:page]).order('created_at DESC')
   end
 
   def show
@@ -27,23 +27,17 @@ class TweetController < ApplicationController
   end
 
   def update
-    p "#{params[:user_id]} ..... #{current_user.id}"
-    begin
-      # if params[:user_id] != current_user.id
-      #   return render :status => :unprocessable_entity
-      # end
       @tweet = current_user.tweets.where(id: params[:id]).first
       if @tweet && @tweet.update(tweet_params)
         render :json => @tweet
       else
         render :json => { error: @tweet.errors, status: :unprocessable_entity}, :status => :unprocessable_entity
-      end
-    rescue ActiveRecord::RecordNotFound
+      end   rescue ActiveRecord::RecordNotFound
       render :json => { error: {tweet:['not found']}, status: :unprocessable_entity}, :status => :unprocessable_entity
-    end
   end
 
   def tweet_params
     params.permit(:tweet)
   end
+
 end
